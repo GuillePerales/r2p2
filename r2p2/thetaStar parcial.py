@@ -2,6 +2,7 @@
 import math
 import path_planning as pp
 
+#Children es igual que A*
 def children(point,grid):
     """
         Calculates the children of a given node over a grid.
@@ -51,9 +52,8 @@ def children(point,grid):
     return [link for link in links if link.value != 9]
 
 
-openset = set()
 
-def theta_Star(start, goal, grid, heuristic):
+def theta_Star(inicio, meta, grid, heuristic):
     """
     start.G = 0
     start.H = pp.heuristic[heuristic](start,goal)
@@ -61,18 +61,61 @@ def theta_Star(start, goal, grid, heuristic):
     abiertos = set()
     abiertos.add(start, start.G + start.H)
     """
-    closedset = set()
-    current = start #!!!!!
-    openset.add(start)
-    while openset:
+    #Creamos los conjuntos iniciales
+    abiertos = set()
+    cerrados = set()
 
+    #El actual es el inicio y añadimos a abiertos
+    actual = inicio
+    abiertos.add(actual)
+    # Mientras abiertos no este vacio
+    while abiertos:
+        # Buscamos el abierto con menor heuristica (G+H)
+        actual = min(abiertos, key=lambda o: o.G + o.H)
+        pp.expanded_nodes += 1
+        # Si el actual es la meta rehacemos el camino y lo devolvemos
+        if actual == meta:
+            path = []
+            while actual.parent:
+                path.append(actual)
+                actual = actual.parent
+            path.append(actual)
+            return path[::-1]
+        # Quitamos el actual de la lista de abiertos y lo metemos en cerrados
+        abiertos.remove(actual)
+        cerrados.add(actual)
 
+        #Aqui falta lo del seudocodigo de UpdateBounds que solo ejecuta Thetha
+
+        # Bucle a traves de los hijos
+        for nodo in children(actual, grid):
+            # Si esta en cerrados se pasa de el
+            if nodo in cerrados:
+                continue
+            # Si esta abierto se comprueba si mejora la G score, si es asi se actualiza el nodo
+            if nodo in abiertos:
+                #Lo que hay que cambiar es a partir de aqui que seria la parte de UpdateVertex añadiendo lo de Lineofsight------------------------------------------------
+                nueva_G = actual.G + actual.move_cost(nodo)
+                if nodo.G > nueva_G:
+                    nodo.G = nueva_G
+                    nodo.parent = actual
+            else:
+                #Si no esta en abiertos se calcula su heuristica (g+h)
+                nodo.G = actual.G + actual.move_cost(nodo)
+                nodo.H = pp.heuristic[heur](nodo, meta)
+                # el padre es el actual
+                nodo.parent = actual
+                # Se añade el nuevo nodo hijo a abiertos
+                abiertos.add(nodo)
+                #----------------------------------------------------------------------------------------------------------------------------------------------------------
+        # Excepción si no hay camino
+    raise ValueError('No Path Found')
 pp.register_search_method('theta*', theta_Star)
 
 
-def lineOfSight(current, node, grid):
-    x0, y0 = current.grid_point
-    x1, y1 = node.grid_point
+def lineOfSight(actual, nodo, grid):
+    x0, y0 = actual.grid_point
+    x1, y1 = nodo.grid_point
     dy = y1 - y0
     dx = x1 - x0
     sx = 0

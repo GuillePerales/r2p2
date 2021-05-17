@@ -1,5 +1,5 @@
 {
-	"stage": "../res/test_2.png",
+	"stage": "../res/mapaPL3.png",
 	"robot": "../conf/robot.json",
 	"controller": "../conf/controller-pathplanning.json",
 	"gui": true,
@@ -7,5 +7,5 @@
 	"heuristic": "manhattan",
 	"start": [27, 19],
 	"goal": [8, 20],
-	"grid_size": 32
+	"grid_size": 30
 }

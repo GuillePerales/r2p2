@@ -88,20 +88,25 @@ def theta_Star(inicio, meta, grid, heuristic):
                 continue
             # Si esta abierto se comprueba si mejora la G score, si es asi se actualiza el nodo
             if nodo in abiertos:
-                #Lo que hay que cambiar es a partir de aqui que seria la parte de UpdateVertex añadiendo lo de Lineofsight------------------------------------------------
-                nueva_G = actual.G + actual.move_cost(nodo)
-                if nodo.G > nueva_G:
-                    nodo.G = nueva_G
-                    nodo.parent = actual
+                print(lineOfSight(actual,nodo,grid))
+                if(lineOfSight(actual,nodo,grid)):
+                    nueva_G = actual.G + actual.move_cost(nodo)
+                    if nodo.G > nueva_G:
+                        nodo.G = nueva_G
+                        nodo.parent = actual
+                else:
+                    #Si no esta en abiertos se calcula su heuristica (g+h)
+                    nueva_G = actual.G + actual.move_cost(nodo)
+                    if nodo.G > nueva_G:
+                        nodo.G = nueva_G
+                        # el padre es el actual
+                        nodo.parent = actual
             else:
-                #Si no esta en abiertos se calcula su heuristica (g+h)
                 nodo.G = actual.G + actual.move_cost(nodo)
-                nodo.H = pp.heuristic[heuristic](nodo, meta)
-                # el padre es el actual
+                nodo.H = pp.heuristic[heuristic](nodo,meta)
                 nodo.parent = actual
                 # Se añade el nuevo nodo hijo a abiertos
                 abiertos.add(nodo)
-                #----------------------------------------------------------------------------------------------------------------------------------------------------------
         # Excepción si no hay camino
     raise ValueError('No Path Found')
 

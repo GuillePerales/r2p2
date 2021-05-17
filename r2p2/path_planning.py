@@ -323,4 +323,4 @@ def run_path_planning_mesh(mesh_points, algo='A* mesh', start=(1, 1), finish=(2,
 import heuristics
 import aStar
 import dijkstra
-import theta_Star
+import theta

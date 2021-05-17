@@ -53,7 +53,7 @@ def children(point,grid):
 
 
 
-def theta_Star(inicio, meta, grid, heuristic):
+def theta(inicio, meta, grid, heuristic):
     
     #Creamos los conjuntos iniciales
     abiertos = set()
@@ -110,7 +110,7 @@ def theta_Star(inicio, meta, grid, heuristic):
         # Excepción si no hay camino
     raise ValueError('No Path Found')
 
-pp.register_search_method('theta*', theta_Star)
+pp.register_search_method('theta*', theta)
 
 
 def lineOfSight(current, node, grid):

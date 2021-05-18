@@ -4,8 +4,8 @@
 	"controller": "../conf/controller-pathplanning.json",
 	"gui": true,
 	"algorithm": "theta*",
-	"heuristic": "manhattan",
-	"start": [27, 19],
-	"goal": [8, 20],
+	"heuristic": "euclidean",
+	"start": [4, 4],
+	"goal": [26, 26],
 	"grid_size": 30
 }

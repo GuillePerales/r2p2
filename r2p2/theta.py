@@ -61,7 +61,7 @@ def theta(inicio, meta, grid, heuristic):
 
     #El actual es el inicio y añadimos a abiertos
     actual = inicio
-    abiertos.add(actual)
+    abiertos.add(inicio)
     # Mientras abiertos no este vacio
     while abiertos:
         # Buscamos el abierto con menor heuristica (G+H)
@@ -90,10 +90,10 @@ def theta(inicio, meta, grid, heuristic):
             if nodo in abiertos:
                 print(lineOfSight(actual,nodo,grid))
                 if(lineOfSight(actual,nodo,grid)):
-                    nueva_G = actual.G + actual.move_cost(nodo)
+                    nueva_G = actual.parent.G + actual.parent.move_cost(nodo)
                     if nodo.G > nueva_G:
                         nodo.G = nueva_G
-                        nodo.parent = actual
+                        nodo.parent = actual.parent
                 else:
                     #Si no esta en abiertos se calcula su heuristica (g+h)
                     nueva_G = actual.G + actual.move_cost(nodo)

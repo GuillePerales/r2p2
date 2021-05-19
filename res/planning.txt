@@ -1,18 +1,10 @@
-
-; Time 0.00
-; ParsingTime 0.00
-; NrActions 9
-; MakeSpan
-; MetricValue 56.076
-; PlanningTechnique Modified-FF(enforced hill-climbing search) as the subplanner
-
-0.001: (ANALYSE_SAMPLE P0506) [1.0000]
-1.002: (MOVE P0506 P0304) [0.0333]
-1.036: (ANALYSE_SAMPLE P0304) [1.0000]
-2.037: (COMMUNICATE_EARTH) [1.0000]
-3.038: (RECHARGE_BATTERY) [50.0000]
-53.039: (MOVE P0304 P0503) [0.0333]
-53.074: (ANALYSE_SAMPLE P0503) [1.0000]
-54.075: (TAKE_PICTURE P0503) [1.0000]
-55.076: (DRILL P0503) [1.0000]
-"
+(move p0000 p0506)
+(analyse_sample p0506)
+(move p0506 p0304)
+(analyse_sample p0304)
+(communicate_earth)
+(recharge_battery)
+(move p0304 p0503)
+(analyse_sample p0503)
+(take_picture p0503)
+(drill p0503)

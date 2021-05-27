@@ -36,7 +36,7 @@ def manhattan(point,point2):
     """
     x1, y1 = point.grid_point
     x2, y2 = point2.grid_point
-    return math.fabs(x1-x2) + math.fabs(y1-y2)
+    return abs(x1-x2) + abs(y1-y2)
 
 pp.register_heuristic('manhattan', manhattan)
 
@@ -54,7 +54,7 @@ def euclidean(point, point2):
     """
     x1, y1 = point.grid_point
     x2, y2 = point2.grid_point
-    return math.sqrt(pow(x2-x1, 2) + pow(y2-y1, 2))
+    return math.sqrt(pow(abs(x2-x1), 2) + pow(abs(y2-y1), 2))
 
 pp.register_heuristic('euclidean', euclidean)
 
@@ -64,8 +64,8 @@ def octile(point, point2):
     """
     x1, y1 = point.grid_point
     x2, y2 = point2.grid_point
-    grad_x = math.fabs(x1-x2)
-    grad_y = math.fabs(y1-y2)
+    grad_x = abs(x1-x2)
+    grad_y = abs(y1-y2)
     return max(grad_x, grad_y) + (math.sqrt(2) * min(grad_x, grad_y))
 
 pp.register_heuristic('octile', octile)
